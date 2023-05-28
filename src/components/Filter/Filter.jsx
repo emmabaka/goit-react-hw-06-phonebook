@@ -1,7 +1,11 @@
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeFilter } from 'redux/filterSlice';
 import css from './Filter.module.css';
 
-const Filter = ({ value, handleChange }) => {
+const Filter = () => {
+  const value = useSelector(state => state.filter);
+  const dispatch = useDispatch();
+
   return (
     <div className={css.wrapper}>
       <label className={css.label}>
@@ -11,7 +15,7 @@ const Filter = ({ value, handleChange }) => {
           type="text"
           name="filter"
           value={value}
-          onChange={handleChange}
+          onChange={e => dispatch(changeFilter(e.target.value))}
         />
       </label>
     </div>
@@ -19,8 +23,3 @@ const Filter = ({ value, handleChange }) => {
 };
 
 export default Filter;
-
-Filter.propTypes = {
-  value: PropTypes.string,
-  handleChange: PropTypes.func,
-};
